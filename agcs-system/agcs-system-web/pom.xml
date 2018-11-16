@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <artifactId>agcs-system</artifactId>
+    <groupId>com.agcs</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <artifactId>agcs-system-web</artifactId>
+  <packaging>war</packaging>
+  <name>agcs-system-web Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  <dependencies>
+    <!-- 添加对其他模块的依赖 -->
+   	<dependency>
+       <groupId>com.agcs</groupId>
+       <artifactId>agcs-system-core</artifactId>
+       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>com.agcs</groupId>
+       <artifactId>agcs-system-hibernate</artifactId>
+       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+       <groupId>com.agcs</groupId>
+       <artifactId>agcs-config</artifactId>
+       <version>${project.version}</version>
+       <type>war</type>
+    </dependency>
+    <dependency>
+       <groupId>com.agcs</groupId>
+       <artifactId>agcs-system-mq</artifactId>
+       <version>${project.version}</version>
+    </dependency>
+    <!-- <dependency>
+       <groupId>com.braveframwork</groupId>
+       <artifactId>brave-dubbo</artifactId>
+       <version>${project.version}</version>
+       <type>war</type>
+    </dependency> -->
+    <!-- <dependency>
+       <groupId>com.braveframwork</groupId>
+       <artifactId>brave-mvcframework</artifactId>
+       <version>${project.version}</version>
+    </dependency> -->
+    
+  </dependencies>
+  
+  <build>
+    <finalName>agcs-system-web</finalName>
+    <plugins>
+         <!--配置Jetty插件
+         <plugin>
+             <groupId>org.mortbay.jetty</groupId>
+             <artifactId>maven-jetty-plugin</artifactId>
+         </plugin>
+         <plugin>  
+		         <groupId>org.apache.maven.plugins</groupId>  
+		         <artifactId>maven-surefire-plugin</artifactId>  
+		         <version>2.4.2</version>  
+		         <configuration>  
+		           <skipTests>true</skipTests>  
+		         </configuration>  
+		 </plugin> --> 
+ 
+     	<plugin>
+             <groupId>org.apache.tomcat.maven</groupId>
+             <artifactId>tomcat7-maven-plugin</artifactId>
+             <version>2.2</version>
+             <configuration>
+                 <url>http://localhost:8081/manager/text</url>
+                 <!-- server、username、password对应maven的setting下的配置 -->
+                 <server>tomcat</server>
+                 <username>tomcat</username>
+                 <password>tomcat</password>
+                 <port>8081</port>
+                 <path>/${project.build.finalName}</path>
+                 <!-- war文件路径缺省情况下指向target -->
+                 <warFile>${basedir}/target/${project.build.finalName}.war</warFile>
+             </configuration>
+         </plugin>
+    </plugins>
+  </build>
+</project>

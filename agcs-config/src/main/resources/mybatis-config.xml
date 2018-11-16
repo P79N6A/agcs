@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 单元测试时注释打开 -->
+	<!-- 与spring整合时注释 -->
+  	<properties resource="db.properties">
+  	</properties>
+  	
+  	<settings>
+  		<!-- 打开延迟加载的开关 -->
+  		<setting name="lazyLoadingEnabled" value="true"/>
+  		<!-- 将积极加载改为消极加载即按需加载 -->
+  		<setting name="aggressiveLazyLoading" value="false"/>
+  		<!-- 开启二级缓存 默认开启 -->
+  		<setting name="cacheEnabled" value="true"/>
+  	</settings>
+  	
+  	<typeAliases>
+  		<package name="org.brave.web.pojo"/>
+  	</typeAliases>
+  	
+  	<!-- 单元测试时注释打开 -->
+  	<!-- 与spring整合时注释 -->
+    <environments default="development">
+      <environment id="development">
+        <transactionManager type="JDBC">
+        </transactionManager>
+        <dataSource type="POOLED">
+        	<property name="driver" value="${jdbc.driverClassmysql}"/>
+        	<property name="url" value="${jdbc.jdbcUrlmysql}"/>
+        	<property name="username" value="${jdbc.usermysql}"/>
+        	<property name="password" value="${jdbc.passwordmysql}"/>
+        </dataSource>
+      </environment>
+    </environments>
+    
+    <!-- <mappers>
+      <package name="org.brave.web.mapper"/>
+    </mappers> -->
+
+</configuration>

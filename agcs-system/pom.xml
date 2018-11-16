@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <artifactId>agcs</artifactId>
+    <groupId>com.agcs</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <artifactId>agcs-system</artifactId>
+  <packaging>pom</packaging>
+  <name>agcs-system</name>
+  <url>http://maven.apache.org</url>
+  
+  <modules>
+  	<module>agcs-system-core</module>
+  	<module>agcs-system-hibernate</module>
+  	<module>agcs-system-mvc</module>
+  	<module>agcs-system-mq</module>
+  	<module>agcs-system-web</module>
+  </modules>
+</project>

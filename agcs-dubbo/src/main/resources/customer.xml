@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+	<!-- 引入配置文件 -->
+	<context:property-placeholder location="classpath:dubbo.properties" ignore-unresolvable="true"/>
+
+	<!-- <dubbo:application name="pay-consumer" />
+	<dubbo:registry protocol="zookeeper"
+		address="192.168.108.161:2181,192.168.108.162:2181,192.168.108.163:2181" />
+	<dubbo:monitor protocol="registry"/>
+	<dubbo:reference id="thirdPay" interface="com.tech.framework.zmpay.IThirdPay" />
+	<dubbo:annotation package="com.tech.framework.pay.consumer" />
+	<bean class="com.tech.framework.pay.consumer.ThirdPayConsumer"
+		init-method="getPayHtml">
+		<property name="thirdPay" ref="thirdPay" />
+	</bean> -->
+	
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->    
+	<dubbo:application name="diamond_api"  />
+	<!-- 使用multicast广播注册中心暴露发现服务地址 -->    
+	<dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}" />
+	<!-- 生成远程服务代理，可以和本地bean一样使用demoService -->    
+	<dubbo:reference id="diamondServices" interface="org.agcs.services.api.goods.diamond.DiamondServiceI" timeout="${dubbo.reference.timeout}" check="${dubbo.reference.check}"/>
+	<!-- 扫描注解包路径，多个包用逗号分隔，不填pacakge表示扫描当前ApplicationContext中所有的类 -->
+	<!-- <dubbo:annotation package="cn.xiaoma.api" /> -->
+	
+</beans>

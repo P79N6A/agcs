@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/cache
+        http://www.springframework.org/schema/cache/spring-cache.xsd"
+    default-lazy-init="false">
+    
+    <!-- 引入配置文件 -->
+	<context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>
+	
+	<!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
+	<!-- <cache:annotation-driven cache-manager="cacheManager" />  -->
+	<!-- spring自己的管理器，既注解中的value -->
+	<!-- <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">  
+        <property name="caches">  
+            <set>  
+                <bean class="org.braveframework.cache.redis.RedisCache">  
+                    <property name="redisTemplate" ref="redisTemplate" />  
+                    <property name="name" value="default"/>  
+                </bean>  
+                <bean class="org.braveframework.cache.redis.RedisCache">  
+                    <property name="redisTemplate" ref="redisTemplate02" />  
+                    <property name="name" value="commonCache"/>  
+                </bean>  
+            </set>  
+        </property>  
+    </bean> -->  
+    
+    <!-- <bean id="connectionFactory"  
+        class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"  
+        p:host-name="${redis.host}" p:port="${redis.port}" p:pool-config-ref="poolConfig"  
+        p:database="${redis.database}" />  
+  
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">  
+        <property name="connectionFactory" ref="connectionFactory" />  
+    </bean> -->
+    
+    <!-- redis 相关配置 -->  
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"> 
+    	<property name="maxTotal" value="${redis.maxActive}" />
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="maxWaitMillis" value="${redis.maxWait}" />    
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" /> 
+        <property name="testOnReturn" value="${redis.testOnReturn}"/> 
+    </bean> 
+    
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool" scope="singleton">
+        <constructor-arg index="0" ref="jedisPoolConfig" />
+        <constructor-arg index="1">
+            <list>
+                <bean class="redis.clients.jedis.JedisShardInfo">
+                    <constructor-arg name="host" value="${redis.host}" />
+                    <constructor-arg name="port" value="${redis.port}" />
+                    <constructor-arg name="timeout" value="${redis.timeout}" />
+                    <!-- <constructor-arg name="weight" value="1" />-->
+                    <property name="password" value="${redis.password}"></property>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>
+    
+    <!-- spring session代理的配置 -->
+    <bean class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+		<property name="maxInactiveIntervalInSeconds" value="1800"></property>
+	</bean>
+	
+	<bean id="zcJedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<property name="hostName" value="${redis.host}" />
+		<property name="port" value="${redis.port}" />
+		<property name="password" value="${redis.password}"></property>
+		<property name="poolConfig" ref="jedisPoolConfig"/>
+	</bean>
+	
+	<bean id="zcRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="zcJedisConnectionFactory" />
+		<property name="keySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="hashKeySerializer">
+			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+	</bean>
+	
+</beans>

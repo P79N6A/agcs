@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd"
+    default-autowire="byName" default-lazy-init="false">
+    
+    <!-- Hibernate antiDao -->
+	<bean id="antiBaseDao"
+		class="org.agcs.system.hibernate.antidao.dao.impl.AntiBaseDaoImpl">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
+	<!-- AntiDao动态代理类 -->
+	<bean id="antiDaoHandler" class="org.agcs.system.hibernate.antidao.aop.AutiDaoHandler">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+		<!-- 格式化sql -->
+		<property name="formatSql" value="true"></property>
+		<!-- 输出sql -->
+		<property name="showSql" value="true"></property>
+	</bean>
+    
+    <!-- 扫描注解dao,并注入bean -->
+    <bean id="antidaoFactory" class="org.agcs.system.hibernate.antidao.factory.AntiDaoBeanFactory">
+    	<property name="packageScan">
+    		<list>
+    			<value>org.agcs.system.web.dao.system.*</value>
+    		</list>
+    	</property>
+    </bean>
+    
+</beans>

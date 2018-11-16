@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <artifactId>agcs-system</artifactId>
+    <groupId>com.agcs</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <artifactId>agcs-system-mq</artifactId>
+  <name>agcs-system-mq</name>
+  <packaging>jar</packaging>
+  <url>http://maven.apache.org</url>
+  
+  <dependencies>
+  	<dependency>
+       <groupId>com.agcs</groupId>
+       <artifactId>agcs-system-hibernate</artifactId>
+       <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba.rocketmq</groupId>
+      <artifactId>rocketmq-client</artifactId>
+      <version>3.2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba.rocketmq</groupId>
+      <artifactId>rocketmq-all</artifactId>
+      <version>3.2.6</version>
+      <type>pom</type>
+    </dependency>
+  </dependencies>
+</project>

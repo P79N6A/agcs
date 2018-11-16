@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+/*****全局样式*****/
+.div_center{width:100%; text-align: center;}
+.edittable{
+	font-size:12px;
+	width:90%;
+	border-collapse:collapse;
+	margin: 10px auto;
+}
+.edittable,.edittable tr,.edittable td,.edittable th{
+	border:1px solid #D2E9FF;
+}
+.edittable tr{
+	height:25px;
+}
+.lab1{
+	
+}
+.inputs{width: 200px; height: 18px;}

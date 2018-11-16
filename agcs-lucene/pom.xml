@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <artifactId>agcs</artifactId>
+    <groupId>com.agcs</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  
+  <groupId>com.agcs</groupId>
+  <artifactId>agcs-lucene</artifactId>
+  <packaging>war</packaging>
+  <name>agcs-lucene Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  <dependencies>
+  	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+	    <artifactId>lucene-core</artifactId>
+	    <version>5.5.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+	    <artifactId>lucene-analyzers-common</artifactId>
+	    <version>5.5.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+	    <artifactId>lucene-facet</artifactId>
+	    <version>5.5.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+	    <artifactId>lucene-queries</artifactId>
+	    <version>5.5.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+	    <artifactId>lucene-queryparser</artifactId>
+	    <version>5.5.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+	    <artifactId>lucene-sandbox</artifactId>
+	    <version>5.5.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.lucene</groupId>
+	    <artifactId>lucene-demo</artifactId>
+	    <version>5.5.3</version>
+	</dependency>
+  </dependencies>
+  
+  <build>
+    <finalName>agcs-lucene</finalName>
+  </build>
+</project>
